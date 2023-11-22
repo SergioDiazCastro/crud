@@ -1,14 +1,14 @@
 const express = require('express');
 const moongose = require('mongoose');
 require("dotenv").config();
-const userRoutes = require("./routes/user.js")
+const productsRoutes = require("./routes/products.js")
 
 const app = express(); 
 const port = process.env.PORT || 9000;
 
 //middleware
 app.use(express.json());    
-app.use('/api', userRoutes);
+app.use('/api', productsRoutes);
 
 //routes
 app.get('/', (req, res) => {
@@ -21,4 +21,7 @@ moongose.connect(process.env.MONGODB_URI)
 .catch((error) => console.error(error));
 
 
-app.listen(port, () => console.log('server listening on port', port));
+const server = app.listen(port, () => console.log('Server running on port', port));
+
+module.exports = { app, server };  // Exportar app y server
+
